@@ -5,11 +5,17 @@
 #define blanco 'b'
 #define rojo 'r'
 
+typedef struct cara{
+    char color[9];
+}cara;
+
 typedef struct cubo{
-    char frontal[9];
-    char derecha[9];
-    char izquierda[9];
-    char arriba[9];
-    char abajo[9];
-    char detras[9];
+    cara frontal;
+    cara derecha;
+    cara izquierda;
+    cara arriba;
+    cara abajo;
+    cara detras;
 } cubo;
+
+void  reedFace(cara *estaCara);
