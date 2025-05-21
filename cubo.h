@@ -18,4 +18,7 @@ typedef struct cubo{
     cara detras;
 } cubo;
 
-void  reedFace(cara *estaCara);
+void reedCube(cubo *micubo);
+void reedFace(cara *estaCara);
+void writeFace(cara lacara);
+void writeCube(cubo micubo);
