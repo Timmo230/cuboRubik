@@ -5,20 +5,29 @@
 #define blanco 'b'
 #define rojo 'r'
 
+#define frontal 0
+#define derecha 1
+#define detras 2
+#define izquierda 3
+#define arriba 4
+#define abajo 5
+
 typedef struct cara{
     char color[9];
 }cara;
 
 typedef struct cubo{
-    cara frontal;
-    cara derecha;
-    cara izquierda;
-    cara arriba;
-    cara abajo;
-    cara detras;
+    cara caras[6];
 } cubo;
+
+typedef struct treenode{
+    int numMov;
+    int movs[50];
+}treenode;
 
 void reedCube(cubo *micubo);
 void reedFace(cara *estaCara);
 void writeFace(cara lacara);
 void writeCube(cubo micubo);
+void R(cubo *micubo);
+int checkCube(cubo micubo);
