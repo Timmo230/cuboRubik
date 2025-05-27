@@ -30,4 +30,5 @@ void reedFace(cara *estaCara);
 void writeFace(cara lacara);
 void writeCube(cubo micubo);
 void R(cubo *micubo);
+void Rp(cubo *micubo);
 int checkCube(cubo micubo);

@@ -97,12 +97,12 @@ void Rp(cubo *micubo){
     micubo->caras[arriba].color[2] = copia.caras[detras].color[6];
 
     //Cara derecha
-    micubo->caras[derecha].color[1] = copia.caras[derecha].color[3];
-    micubo->caras[derecha].color[3] = copia.caras[derecha].color[7];
-    micubo->caras[derecha].color[5] = copia.caras[derecha].color[1];
-    micubo->caras[derecha].color[7] = copia.caras[derecha].color[5];
-    micubo->caras[derecha].color[0] = copia.caras[derecha].color[6];
-    micubo->caras[derecha].color[2] = copia.caras[derecha].color[0];
-    micubo->caras[derecha].color[6] = copia.caras[derecha].color[8];
-    micubo->caras[derecha].color[8] = copia.caras[derecha].color[2];
+    micubo->caras[derecha].color[1] = copia.caras[derecha].color[5];
+    micubo->caras[derecha].color[3] = copia.caras[derecha].color[1];
+    micubo->caras[derecha].color[5] = copia.caras[derecha].color[7];
+    micubo->caras[derecha].color[7] = copia.caras[derecha].color[3];
+    micubo->caras[derecha].color[0] = copia.caras[derecha].color[2];
+    micubo->caras[derecha].color[2] = copia.caras[derecha].color[8];
+    micubo->caras[derecha].color[6] = copia.caras[derecha].color[0];
+    micubo->caras[derecha].color[8] = copia.caras[derecha].color[6];
 }
