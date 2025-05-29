@@ -31,4 +31,6 @@ void writeFace(cara lacara);
 void writeCube(cubo micubo);
 void R(cubo *micubo);
 void Rp(cubo *micubo);
+void L(cubo *micubo);
 int checkCube(cubo micubo);
+void rotateFace(cubo copia, cubo *cubo, int lado, int patron[]);

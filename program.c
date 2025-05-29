@@ -6,7 +6,7 @@ int main(){
     cubo micubo;
     
     reedCube(&micubo);
-    Rp(&micubo);
+    L(&micubo);
     writeCube(micubo);
 
     return 1;
