@@ -123,3 +123,24 @@ void L(cubo *micubo){
     //Cara izquierda
     rotateFace(copia, micubo, izquierda, patron1);
 }
+
+void Lp(cubo *micubo){
+    cubo copia = *micubo;
+
+    //Todas las caras menos la izquierda
+    for(int i = 0; i<9; i = i+3){
+        micubo->caras[frontal].color[i] = copia.caras[abajo].color[i];
+        micubo->caras[arriba].color[i] = copia.caras[frontal].color[i];
+    }
+    
+    micubo->caras[detras].color[8] = copia.caras[arriba].color[0];
+    micubo->caras[detras].color[5] = copia.caras[arriba].color[3];
+    micubo->caras[detras].color[2] = copia.caras[arriba].color[6];
+
+    micubo->caras[abajo].color[0] = copia.caras[detras].color[8];
+    micubo->caras[abajo].color[3] = copia.caras[detras].color[5];
+    micubo->caras[abajo].color[6] = copia.caras[detras].color[2];
+
+    //Cara izquierda
+    rotateFace(copia, micubo, izquierda, patron2);
+}
