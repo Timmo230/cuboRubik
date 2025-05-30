@@ -3,6 +3,7 @@
 
 int patron1[] = {6, 3, 0, 7, 4, 1, 8, 5, 2};
 int patron2[] = {2, 5, 8, 1, 4, 7, 0, 3, 6};
+int patron3[] = {6, 3, 0};
 
 void  reedFace(cara *estaCara){
     int c;
@@ -62,6 +63,10 @@ void rotateFace(cubo copia, cubo *cubo,  int lado, int patron[]){
     }
 }
 
+void changeColumns(cubo copia, cubo *micubo, int lado1, int lado2, int lado3){
+    
+}
+
 void R(cubo *micubo){
     cubo copia = *micubo;
     
@@ -70,13 +75,10 @@ void R(cubo *micubo){
         micubo->caras[frontal].color[i] = copia.caras[abajo].color[i];
         micubo->caras[arriba].color[i] = copia.caras[frontal].color[i];
     }
-    micubo->caras[detras].color[0] = copia.caras[arriba].color[8];
-    micubo->caras[detras].color[3] = copia.caras[arriba].color[5];
-    micubo->caras[detras].color[6] = copia.caras[arriba].color[2];
-
-    micubo->caras[abajo].color[8] = copia.caras[detras].color[0];
-    micubo->caras[abajo].color[5] = copia.caras[detras].color[3];
-    micubo->caras[abajo].color[2] = copia.caras[detras].color[6];
+    for(int i = 2; i < 9; i += 3){
+        micubo->caras[detras].color[patron3[i]] = copia.caras[arriba].color[i];
+        micubo->caras[abajo].color[i] = copia.caras[detras].color[patron3[3]];
+    }
 
     //Cara derecha
     rotateFace(copia, micubo, derecha, patron1);
