@@ -29,9 +29,15 @@ void reedCube(cubo *micubo);
 void reedFace(cara *estaCara);
 void writeFace(cara lacara);
 void writeCube(cubo micubo);
+int checkCube(cubo micubo);
+void rotateFace(cubo copia, cubo *cubo, int lado, int patron[]);
+void changeColumns(cubo copia, cubo *micubo, int lado1, int lado2, int lado3, int lado4,int inicio);
+
 void R(cubo *micubo);
 void Rp(cubo *micubo);
 void L(cubo *micubo);
 void Lp(cubo *micubo);
-int checkCube(cubo micubo);
-void rotateFace(cubo copia, cubo *cubo, int lado, int patron[]);
+void U(cubo *micubo);
+void Up(cubo *micubo);
+void D(cubo *micubo);
+void Dp(cubo *micubo);

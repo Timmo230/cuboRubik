@@ -63,86 +63,99 @@ void rotateFace(cubo copia, cubo *cubo,  int lado, int patron[]){
     }
 }
 
-void changeColumns(cubo copia, cubo *micubo, int lado1, int lado2, int lado3){
-    
+void changeColumns(cubo copia, cubo *micubo, int lado1, int lado2, int lado3, int lado4,int inicio){
+    for(int i = inicio; i<9; i = i+3){
+        micubo->caras[lado1].color[i] = copia.caras[lado2].color[i];
+        micubo->caras[lado3].color[i] = copia.caras[lado1].color[i];
+    }
+    for(int i = 0; i < 3; i++){
+        if(inicio == 2){
+            micubo->caras[lado4].color[patron3[i]] = copia.caras[lado3].color[i * 3 + 2];
+            micubo->caras[lado2].color[i * 3 + 2] = copia.caras[lado4].color[patron3[i]];
+        }else{
+            micubo->caras[lado4].color[i * 3 + 2] = copia.caras[lado3].color[patron3[i]];
+            micubo->caras[lado2].color[patron3[i]] = copia.caras[lado4].color[i * 3 + 2];
+        }
+    }
 }
 
 void R(cubo *micubo){
     cubo copia = *micubo;
-    
     //Todas las caras menos la derecha
-    for(int i = 2; i<9; i = i+3){
-        micubo->caras[frontal].color[i] = copia.caras[abajo].color[i];
-        micubo->caras[arriba].color[i] = copia.caras[frontal].color[i];
-    }
-    for(int i = 2; i < 9; i += 3){
-        micubo->caras[detras].color[patron3[i]] = copia.caras[arriba].color[i];
-        micubo->caras[abajo].color[i] = copia.caras[detras].color[patron3[3]];
-    }
-
+    changeColumns(copia, micubo, frontal, abajo, arriba, detras, 2);
     //Cara derecha
     rotateFace(copia, micubo, derecha, patron1);
 }
 
 void Rp(cubo *micubo){
     cubo copia = *micubo;
-
     //Todas las caras menos la derecha
-    for(int i = 2; i<9; i = i+3){
-        micubo->caras[frontal].color[i] = copia.caras[arriba].color[i];
-        micubo->caras[abajo].color[i] = copia.caras[frontal].color[i];
-    }
-    
-    micubo->caras[detras].color[0] = copia.caras[abajo].color[8];
-    micubo->caras[detras].color[3] = copia.caras[abajo].color[5];
-    micubo->caras[detras].color[6] = copia.caras[abajo].color[2];
-
-    micubo->caras[arriba].color[8] = copia.caras[detras].color[0];
-    micubo->caras[arriba].color[5] = copia.caras[detras].color[3];
-    micubo->caras[arriba].color[2] = copia.caras[detras].color[6];
-
+    changeColumns(copia, micubo, frontal, arriba, abajo, detras, 2);
     //Rotas derecha
     rotateFace(copia, micubo, derecha, patron2);
 }
 
 void L(cubo *micubo){
     cubo copia = *micubo;
-
     //Todas las caras menos la izquierda
-    for(int i = 0; i<9; i = i+3){
-        micubo->caras[frontal].color[i] = copia.caras[arriba].color[i];
-        micubo->caras[abajo].color[i] = copia.caras[frontal].color[i];
-    }
-    
-    micubo->caras[detras].color[8] = copia.caras[abajo].color[0];
-    micubo->caras[detras].color[5] = copia.caras[abajo].color[3];
-    micubo->caras[detras].color[2] = copia.caras[abajo].color[6];
-
-    micubo->caras[arriba].color[0] = copia.caras[detras].color[8];
-    micubo->caras[arriba].color[3] = copia.caras[detras].color[5];
-    micubo->caras[arriba].color[6] = copia.caras[detras].color[2];
-
+    changeColumns(copia, micubo, frontal, arriba, abajo, detras, 0);
     //Cara izquierda
     rotateFace(copia, micubo, izquierda, patron1);
 }
 
 void Lp(cubo *micubo){
     cubo copia = *micubo;
-
     //Todas las caras menos la izquierda
-    for(int i = 0; i<9; i = i+3){
-        micubo->caras[frontal].color[i] = copia.caras[abajo].color[i];
-        micubo->caras[arriba].color[i] = copia.caras[frontal].color[i];
-    }
-    
-    micubo->caras[detras].color[8] = copia.caras[arriba].color[0];
-    micubo->caras[detras].color[5] = copia.caras[arriba].color[3];
-    micubo->caras[detras].color[2] = copia.caras[arriba].color[6];
-
-    micubo->caras[abajo].color[0] = copia.caras[detras].color[8];
-    micubo->caras[abajo].color[3] = copia.caras[detras].color[5];
-    micubo->caras[abajo].color[6] = copia.caras[detras].color[2];
-
+    changeColumns(copia, micubo,  frontal, abajo, arriba, detras, 0);
     //Cara izquierda
     rotateFace(copia, micubo, izquierda, patron2);
 }
+
+void U(cubo *micubo){
+    cubo copia = *micubo;
+    for(int i = 0; i < 3; i++){
+        micubo->caras[izquierda].color[i] = copia.caras[frontal].color[i];
+        micubo->caras[frontal].color[i] = copia.caras[derecha].color[i];
+        micubo->caras[detras].color[i] = copia.caras[izquierda].color[i];
+        micubo->caras[derecha].color[i] = copia.caras[detras].color[i]; 
+    }
+
+    rotateFace(copia, micubo, arriba, patron1);
+}
+
+void Up(cubo *micubo){
+    cubo copia = *micubo;
+    for(int i = 0; i < 3; i++){
+        micubo->caras[izquierda].color[i] = copia.caras[detras].color[i];
+        micubo->caras[frontal].color[i] = copia.caras[izquierda].color[i];
+        micubo->caras[detras].color[i] = copia.caras[derecha].color[i];
+        micubo->caras[derecha].color[i] = copia.caras[frontal].color[i]; 
+    }
+
+    rotateFace(copia, micubo, arriba, patron2);
+}
+
+void D(cubo *micubo){
+    cubo copia = *micubo;
+    for(int i = 6; i < 9; i++){
+        micubo->caras[izquierda].color[i] = copia.caras[detras].color[i];
+        micubo->caras[frontal].color[i] = copia.caras[izquierda].color[i];
+        micubo->caras[detras].color[i] = copia.caras[derecha].color[i];
+        micubo->caras[derecha].color[i] = copia.caras[frontal].color[i]; 
+    }
+
+    rotateFace(copia, micubo, abajo, patron1);
+}
+
+void Dp(cubo *micubo){
+    cubo copia = *micubo;
+    for(int i = 6; i < 9; i++){
+        micubo->caras[izquierda].color[i] = copia.caras[frontal].color[i];
+        micubo->caras[frontal].color[i] = copia.caras[derecha].color[i];
+        micubo->caras[detras].color[i] = copia.caras[izquierda].color[i];
+        micubo->caras[derecha].color[i] = copia.caras[detras].color[i]; 
+    }
+
+    rotateFace(copia, micubo, abajo, patron2);
+}
+
