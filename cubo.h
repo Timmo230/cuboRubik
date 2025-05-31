@@ -41,3 +41,6 @@ void U(cubo *micubo);
 void Up(cubo *micubo);
 void D(cubo *micubo);
 void Dp(cubo *micubo);
+void F(cubo *micubo);
+void Fp(cubo *micubo);
+void B(cubo *micubo);
