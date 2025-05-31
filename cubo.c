@@ -224,3 +224,25 @@ void B(cubo *micubo){
 
     rotateFace(copia, micubo, detras, patron1);
 }
+
+void Bp(cubo *micubo){
+    cubo copia = *micubo;
+
+    micubo->caras[arriba].color[0] = copia.caras[izquierda].color[6];
+    micubo->caras[arriba].color[1] = copia.caras[izquierda].color[3];
+    micubo->caras[arriba].color[2] = copia.caras[izquierda].color[0];
+
+    micubo->caras[derecha].color[2] = copia.caras[arriba].color[0];
+    micubo->caras[derecha].color[5] = copia.caras[arriba].color[1];
+    micubo->caras[derecha].color[8] = copia.caras[arriba].color[2];
+
+    micubo->caras[abajo].color[6] = copia.caras[derecha].color[8];
+    micubo->caras[abajo].color[7] = copia.caras[derecha].color[5];
+    micubo->caras[abajo].color[8] = copia.caras[derecha].color[2];
+
+    micubo->caras[izquierda].color[0] = copia.caras[abajo].color[6];
+    micubo->caras[izquierda].color[3] = copia.caras[abajo].color[7];
+    micubo->caras[izquierda].color[6] = copia.caras[abajo].color[8];
+
+    rotateFace(copia, micubo, detras, patron2);
+}
