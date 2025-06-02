@@ -40,6 +40,7 @@ void changeColumns(cubo copia, cubo *micubo, int lado1, int lado2, int lado3, in
 void inicializeArray(int array[][3], int index1, int index2);
 int checkWin(cubo micubo);
 int checkCenter(cubo micubo);
+int amountEachColor(cubo micubo);
 
 void R(cubo *micubo);
 void Rp(cubo *micubo);

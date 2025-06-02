@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include "cubo.h"
 
-int amountEachColor(cubo micubo);
-
 int patron1[] = {6, 3, 0, 7, 4, 1, 8, 5, 2};
 int patron2[] = {2, 5, 8, 1, 4, 7, 0, 3, 6};
 int patron3[] = {6, 3, 0};
 
-void  reedFace(cara *estaCara){
+void reedFace(cara *estaCara){
     int c;
     for(int i = 0; i < 9; i++){
         c = getchar();
@@ -113,22 +111,16 @@ int amountEachColor(cubo micubo){
 int checkCenter(cubo micubo){
     if(micubo.caras[frontal].color[4] != blanco || micubo.caras[derecha].color[4] != azul || 
         micubo.caras[detras].color[4] != amarillo || micubo.caras[izquierda].color[4] != verde ||
-        micubo.caras[arriba].color[4] != naranja || micubo.caras[abajo].color[4] != rojo){
-            printf("\n\n\n%c, %c, %c, %c, %c, %c\n\n\n", micubo.caras[frontal].color[4], micubo.caras[derecha].color[4],
-                micubo.caras[detras].color[4], micubo.caras[izquierda].color[4],
-                micubo.caras[arriba].color[4], micubo.caras[abajo].color[4]);
-            return error;
-        }
+        micubo.caras[arriba].color[4] != naranja || micubo.caras[abajo].color[4] != rojo) return error;
     return 1;
 }
 
-//PENDIENTE
 int checkCube(cubo micubo){
     int check = amountEachColor(micubo);
-    if(check == error){
-        return error;
-    }
-    return 1;
+    if(check != error && checkWin(micubo) == win) check = error;
+    if(check != error && checkCenter(micubo) == error) check = error;
+    
+    return check;
 }
 
 void rotateFace(cubo copia, cubo *cubo,  int lado, int patron[]){ 

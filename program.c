@@ -8,11 +8,5 @@ int main(){
     reedCube(&micubo);
     check = checkCube(micubo);
     
-    if(check != error && checkWin(micubo) == error) check = error;
-    if(check != error && checkCenter(micubo) == win) check = error;
-    if(check != error){
-        Bp(&micubo);
-        writeCube(micubo);
-    } 
     return 1;
 }
