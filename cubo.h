@@ -12,6 +12,11 @@
 #define arriba 4
 #define abajo 5
 
+#define error -1
+#define noWin -2
+#define sucessful 1
+#define win 2
+
 typedef struct cara{
     char color[9];
 }cara;
@@ -32,6 +37,9 @@ void writeCube(cubo micubo);
 int checkCube(cubo micubo);
 void rotateFace(cubo copia, cubo *cubo, int lado, int patron[]);
 void changeColumns(cubo copia, cubo *micubo, int lado1, int lado2, int lado3, int lado4,int inicio);
+void inicializeArray(int array[][3], int index1, int index2);
+int checkWin(cubo micubo);
+int checkCenter(cubo micubo);
 
 void R(cubo *micubo);
 void Rp(cubo *micubo);
@@ -45,3 +53,5 @@ void F(cubo *micubo);
 void Fp(cubo *micubo);
 void B(cubo *micubo);
 void Bp(cubo *micubo);
+void M(cubo *micubo);
+void Mp(cubo *micubo);
