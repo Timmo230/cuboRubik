@@ -16,6 +16,7 @@
 #define noWin -2
 #define sucessful 1
 #define win 2
+#define done 3
 
 typedef struct cara{
     char color[9];
@@ -26,9 +27,24 @@ typedef struct cubo{
 } cubo;
 
 typedef struct treenode{
+    struct cubo actualPosition;
     int numMov;
-    int movs[50];
-}treenode;
+    char movs[10];
+    struct treenode *R;
+    struct treenode *Rp;
+    struct treenode *L;
+    struct treenode *Lp;
+    struct treenode *U;
+    struct treenode *Up;
+    struct treenode *D;
+    struct treenode *Dp;
+    struct treenode *F;
+    struct treenode *Fp;
+    struct treenode *B;
+    struct treenode *Bp;
+    struct treenode *M;
+    struct treenode *Mp;
+}treenodeV;
 
 void reedCube(cubo *micubo);
 void reedFace(cara *estaCara);
@@ -41,18 +57,21 @@ void inicializeArray(int array[][3], int index1, int index2);
 int checkWin(cubo micubo);
 int checkCenter(cubo micubo);
 int amountEachColor(cubo micubo);
+void igualarArrays(char primero[], char segundo[]);
 
-void R(cubo *micubo);
-void Rp(cubo *micubo);
-void L(cubo *micubo);
-void Lp(cubo *micubo);
-void U(cubo *micubo);
-void Up(cubo *micubo);
-void D(cubo *micubo);
-void Dp(cubo *micubo);
-void F(cubo *micubo);
-void Fp(cubo *micubo);
-void B(cubo *micubo);
-void Bp(cubo *micubo);
-void M(cubo *micubo);
-void Mp(cubo *micubo);
+cubo R(cubo micubo);
+cubo Rp(cubo micubo);
+cubo L(cubo micubo);
+cubo Lp(cubo micubo);
+cubo U(cubo micubo);
+cubo Up(cubo micubo);
+cubo D(cubo micubo);
+cubo Dp(cubo micubo);
+cubo F(cubo micubo);
+cubo Fp(cubo micubo);
+cubo B(cubo micubo);
+cubo Bp(cubo micubo);
+cubo M(cubo micubo);
+cubo Mp(cubo micubo);
+
+treenodeV* treenode(cubo actualPosition, treenodeV lastNode, char lastMove, int numMove);

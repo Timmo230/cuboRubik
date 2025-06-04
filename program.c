@@ -7,6 +7,10 @@ int main(){
     int check = 0;
     reedCube(&micubo);
     check = checkCube(micubo);
-    
+    treenodeV primero;
+    primero.actualPosition = micubo;
+    primero.numMov = 0;
+    for(int i = 0; i < 10; i++) primero.movs[i] = 0;
+    treenode(micubo, primero, 'N', 0);
     return 1;
 }
