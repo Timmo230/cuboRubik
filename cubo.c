@@ -10,28 +10,37 @@ int continuar = noWin;
 char movsWinners[10] = {0};
 
 void reedFace(cara *estaCara){
-    int c;
-    for(int i = 0; i < 9; i++){
-        c = getchar();
-        getchar();
-        estaCara->color[i] = c;
+    char linea[32];
+    while(1){
+        if(fgets(linea, sizeof(linea), stdin) == NULL) continue;
+        int len = 0;
+        for(int i = 0; linea[i] != '\0'; i++)
+            if(linea[i] != '\n' && linea[i] != '\r' && linea[i] != ' ')
+                linea[len++] = linea[i];
+        if(len == 9){
+            for(int i = 0; i < 9; i++) estaCara->color[i] = linea[i];
+            break;
+        }
+        printf("  Ingresa exactamente 9 colores (ej: bbbbbbbbb): ");
     }
 }
 
 void reedCube(cubo *micubo){
-    printf("Pon la cara en la que este el color blanco en el centro\n");
-    reedFace(&micubo->caras[frontal]);     
-    printf("Ahora con el azul\n");
-    reedFace(&micubo->caras[derecha]);     
-    printf("Ahora con el amarillo\n");
-    reedFace(&micubo->caras[detras]);      
-    printf("Ahora con el verde\n");
-    reedFace(&micubo->caras[izquierda]);   
-    printf("Ahora con el naranja\n");
+    printf("Colores: b=blanco  a=azul  A=amarillo  v=verde  n=naranja  r=rojo\n");
+    printf("Ingresa cada cara como 9 caracteres seguidos (fila por fila, izq a der)\n\n");
+    printf("Cara FRONTAL (blanco al centro): ");
+    reedFace(&micubo->caras[frontal]);
+    printf("Cara DERECHA (azul al centro):   ");
+    reedFace(&micubo->caras[derecha]);
+    printf("Cara DETRAS  (amarillo centro):  ");
+    reedFace(&micubo->caras[detras]);
+    printf("Cara IZQUIER (verde al centro):  ");
+    reedFace(&micubo->caras[izquierda]);
+    printf("Cara ARRIBA  (naranja centro):   ");
     reedFace(&micubo->caras[arriba]);
-    printf("Ahora con el rojo\n");
+    printf("Cara ABAJO   (rojo al centro):   ");
     reedFace(&micubo->caras[abajo]);
-    printf("\n\n");
+    printf("\n");
 }
 
 int checkWin(cubo micubo){
@@ -372,7 +381,7 @@ cubo Mp(cubo micubo){
 }
 
 void printMovs(treenodeV node){
-    for(int i = 0; node.movs[i] != 0; i++){
+    for(int i = 1; node.movs[i] != 0; i++){
         printf("Movimiento numero %d = %c\n", i, node.movs[i]);
     }
 }
@@ -386,29 +395,52 @@ void igualarArrays(char primero[], char segundo[]){
 
 treenodeV* treenode(cubo actualPosition, treenodeV lastNode, char lastMove, int numMove){
     treenodeV *t = (treenodeV*)malloc(sizeof(treenodeV));
+    t->R = t->Rp = t->L = t->Lp = t->U = t->Up = NULL;
+    t->D = t->Dp = t->F = t->Fp = t->B = t->Bp = NULL;
+    t->M = t->Mp = NULL;
     igualarArrays(t->movs, lastNode.movs);
     t->movs[numMove] = lastMove;
     t->actualPosition = actualPosition;
     t->numMov = numMove;
-    continuar = checkWin(actualPosition);
-    if(numMove < 5 && continuar == noWin){
+    if(continuar != done) continuar = checkWin(actualPosition);
+    if(numMove < 7 && continuar == noWin){
         t->R = treenode(R(actualPosition), *t, 'r', numMove+1);
-        t->Rp = treenode(Rp(actualPosition),*t, 'R', numMove+1);
-        t->L = treenode(L(actualPosition),*t, 'l', numMove+1);
-        t->Lp = treenode(Lp(actualPosition), *t,'L', numMove+1);
-        t->R = treenode(U(actualPosition), *t,'u', numMove+1);
-        t->Rp = treenode(Up(actualPosition), *t,'U', numMove+1);
-        t->L = treenode(D(actualPosition), *t,'d', numMove+1);
-        t->Lp = treenode(Dp(actualPosition), *t,'D', numMove+1);
-        t->R = treenode(F(actualPosition), *t,'f', numMove+1);
-        t->Rp = treenode(Fp(actualPosition), *t,'F', numMove+1);
-        t->L = treenode(B(actualPosition), *t,'b', numMove+1);
-        t->Lp = treenode(Bp(actualPosition), *t,'B', numMove+1);
-        t->M = treenode(M(actualPosition), *t,'m', numMove+1);
-        t->Mp = treenode(Mp(actualPosition), *t,'M', numMove+1);
+        t->Rp = treenode(Rp(actualPosition), *t, 'R', numMove+1);
+        t->L = treenode(L(actualPosition), *t, 'l', numMove+1);
+        t->Lp = treenode(Lp(actualPosition), *t, 'L', numMove+1);
+        t->U = treenode(U(actualPosition), *t, 'u', numMove+1);
+        t->Up = treenode(Up(actualPosition), *t, 'U', numMove+1);
+        t->D = treenode(D(actualPosition), *t, 'd', numMove+1);
+        t->Dp = treenode(Dp(actualPosition), *t, 'D', numMove+1);
+        t->F = treenode(F(actualPosition), *t, 'f', numMove+1);
+        t->Fp = treenode(Fp(actualPosition), *t, 'F', numMove+1);
+        t->B = treenode(B(actualPosition), *t, 'b', numMove+1);
+        t->Bp = treenode(Bp(actualPosition), *t, 'B', numMove+1);
+        t->M = treenode(M(actualPosition), *t, 'm', numMove+1);
+        t->Mp = treenode(Mp(actualPosition), *t, 'M', numMove+1);
     }
     else if(continuar == win){
         continuar = done;
         printMovs(*t);
     }
+    return t;
+}
+
+void freeTree(treenodeV *t){
+    if(t == NULL) return;
+    freeTree(t->R);
+    freeTree(t->Rp);
+    freeTree(t->L);
+    freeTree(t->Lp);
+    freeTree(t->U);
+    freeTree(t->Up);
+    freeTree(t->D);
+    freeTree(t->Dp);
+    freeTree(t->F);
+    freeTree(t->Fp);
+    freeTree(t->B);
+    freeTree(t->Bp);
+    freeTree(t->M);
+    freeTree(t->Mp);
+    free(t);
 }

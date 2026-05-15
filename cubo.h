@@ -75,3 +75,4 @@ cubo M(cubo micubo);
 cubo Mp(cubo micubo);
 
 treenodeV* treenode(cubo actualPosition, treenodeV lastNode, char lastMove, int numMove);
+void freeTree(treenodeV *t);

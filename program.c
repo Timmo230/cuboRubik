@@ -11,6 +11,7 @@ int main(){
     primero.actualPosition = micubo;
     primero.numMov = 0;
     for(int i = 0; i < 10; i++) primero.movs[i] = 0;
-    treenode(micubo, primero, 'N', 0);
+    treenodeV *root = treenode(micubo, primero, 'N', 0);
+    freeTree(root);
     return 1;
 }
